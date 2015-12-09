@@ -1,0 +1,57 @@
+import java.util.ArrayList;
+
+public class PascalMod
+{
+    private int mod;
+    private int numberOfRows;
+   
+    public PascalMod(int mod, int numberOfRows)
+    {
+        this.mod=mod;
+        this.numberOfRows=numberOfRows;
+    }
+   
+    public PascalMod()
+    {
+        this(5, 10);
+    }
+   
+    public void testTriang()
+    {
+        ArrayList<int[]> tri = new ArrayList<int[]>(numberOfRows);
+       
+        /*
+         * this creates the basic Pascal's Triangle that everything after is based off of.
+         */
+        for(int i=0; i<numberOfRows; i++)
+        {
+            tri.add(new int[numberOfRows]);
+            tri.get(i)[0] = 1;
+            for(int j=1; j<i; j++)
+            {
+                tri.get(i)[j] = (tri.get(i-1)[j-1]+tri.get(i-1)[j])%mod;
+            }
+            tri.get(i)[i]=1;
+        }
+       
+        /* this part of the code prints out the results with the zeros at the end removed.
+         */
+        for(int j=0; j<numberOfRows; j++)
+        {
+            int end=0;
+            for(int i=numberOfRows-1; i>0; i--)
+            {
+                if(tri.get(j)[i]!=0)
+                {
+                    end = i;
+                    break;
+                }
+            }
+            for(int k=0; k<=end; k++)
+                {
+                    System.out.print(tri.get(j)[k]+ " ");
+                }
+            System.out.print("\n");
+        }
+    }
+}
